@@ -1,41 +1,63 @@
 "use strict";
 
-var validationForm = document.querySelector('#form_with_validation');
-var validateBtn = validationForm.querySelector('.validate_btn');
-var rowsInput = validationForm.querySelector('.rows_input');
-var columnsInput = validationForm.querySelector('.columns_input');
+const validationForm = document.querySelector('#form_with_validation');
+const validateBtn = validationForm.querySelector('.validate_btn');
+const rowsInput = validationForm.querySelector('.rows_input');
+const columnsInput = validationForm.querySelector('.columns_input');
 
-var fields = validationForm.querySelectorAll('.field');
+const fields = validationForm.querySelectorAll('.field');
 
-var generateError = function (text) {
-    var error = document.createElement('div')
+const generateError = function (text) {
+    let error = document.createElement('div')
     error.className = 'error'
     error.style.color = 'red'
     error.innerHTML = text
     return error
 }
 
+const create_table = function (rowsNumber, columnsNumber) {
+    const table_container = document.querySelector('#table_container');
+
+    if (table_container.firstChild) {table_container.firstChild.remove()};
+
+    console.log(table_container.firstChild);
+    const new_table = table_container.appendChild(document.createElement('table'));
+    console.log(new_table);
+
+    for (let i = 0; i < rowsNumber; i++)
+    {
+        const main_table_rows =  new_table.insertRow ();
+
+        for (let j = 0; j < columnsNumber; j++)
+        {
+            const main_table_cells = main_table_rows.insertCell ();
+            main_table_cells.appendChild(document.createElement('a'));
+        }
+    }
+}
+
 validationForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
-    var errors = validationForm.querySelectorAll('.error')
+    const errors = validationForm.querySelectorAll('.error')
 
-    for (var i = 0; i < errors.length; i++) {
+    for (let i = 0; i < errors.length; i++) {
         errors[i].remove();
     }
 
-    for (var i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i++) {
         if (!fields[i].value) {
-            var error = generateError('Cant be blank')
+            const error = generateError('Cant be blank')
             fields[i].parentElement.appendChild(error);
         } else if (fields[i].value <= 0) {
-            var error = generateError('Put the positive number only')
+            const error = generateError('Put the positive number only')
             fields[i].parentElement.appendChild(error);
         } else if (isNaN(fields[i].value)) {
-            var error = generateError('Put the number')
+            const error = generateError('Put the number')
             fields[i].parentElement.appendChild(error);
         }
     };
 
-
+    create_table(rowsInput.value, columnsInput.value);
 })
+
