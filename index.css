@@ -1,0 +1,13 @@
+
+body {
+  margin: 30px;
+}
+
+.creation_form {
+  margin:  20px;
+  padding: 10px;
+}
+
+.creation_form input[type='number'] {
+  margin-right: 15px;
+}
