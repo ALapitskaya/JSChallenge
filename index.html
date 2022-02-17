@@ -7,10 +7,19 @@
 </head>
 <body>
   <h1>Create your table</h1>
-  <form class="creation_form">
-    <input type="number" placeholder="put number of rows"/>
-    <input type="number" placeholder="put number of columns"/>
-    <input type="button" value="Create the table">
+  <form class="creation_form" id="form_with_validation">
+    <div class="field_wrap">
+      <label>Number of rows:</label>
+      <input type="text" class="rows_input field" placeholder="put number of rows"/>
+    </div>
+    <div class="field_wrap">
+      <label>Number of columns:</label>
+      <input type="text" class="columns_input field" placeholder="put number of columns"/>
+    </div>
+    <div class="field_wrap">
+      <input type="submit" class="validate_btn" value="Create the table">
+    </div>
   </form>
 </body>
+<script src="index.js"></script>
 </html>

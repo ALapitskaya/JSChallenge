@@ -8,6 +8,19 @@ body {
   padding: 10px;
 }
 
-.creation_form input[type='number'] {
-  margin-right: 15px;
+.creation_form .field_wrap {
+  margin-top: 20px;
+}
+
+.creation_form .field_wrap label {
+  display:   inline-block;
+  min-width: 170px;
+}
+
+.creation_form .field_wrap .error {
+  display:       inline-block;
+  color:         red;
+  border:        1px solid red;
+  padding-left:  10px;
+  padding-right: 10px;
 }
