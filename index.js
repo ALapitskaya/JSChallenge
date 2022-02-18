@@ -23,11 +23,11 @@ const create_table = function (rowsNumber, columnsNumber) {
 
     const new_table = table_container.appendChild(document.createElement('table'));
 
-    for (let i = 0; i < rowsNumber; i++)
+    for (let i = 0; i < Math.round(rowsNumber); i++)
     {
         const main_table_rows =  new_table.insertRow();
 
-        for (let j = 0; j < columnsNumber; j++)
+        for (let j = 0; j < Math.round(columnsNumber); j++)
         {
             const main_table_cells = main_table_rows.insertCell();
         }
@@ -36,7 +36,9 @@ const create_table = function (rowsNumber, columnsNumber) {
     new_table.addEventListener('click', function(event) {
         let target = event.target;
 
-        (target.tagName != 'TD') ? 'return' : highlightTd(target);
+        if (target.tagName != 'TD') return;
+
+        highlightTd(target);
     });
 };
 
@@ -67,7 +69,11 @@ validationForm.addEventListener('submit', function (event) {
     event.preventDefault();
 
     removeValidation();
+
     checkFields();
-    create_table(Math.round(rowsInput.value), Math.round(columnsInput.value));
+
+    create_table(rowsInput.value, columnsInput.value);
 });
 
+/*
+https://github.com/ALapitskaya/JSChallenge*/
