@@ -1,50 +1,46 @@
 "use strict";
 
 const validationForm = document.querySelector('#form_with_validation');
-const validateBtn = validationForm.querySelector('.validate_btn');
 const rowsInput = validationForm.querySelector('.rows_input');
 const columnsInput = validationForm.querySelector('.columns_input');
-
 const fields = validationForm.querySelectorAll('.field');
 
 const generateError = function (text) {
     let error = document.createElement('div')
-    error.className = 'error'
-    error.style.color = 'red'
-    error.innerHTML = text
-    return error
-}
+    error.className = 'error';
+    error.innerHTML = text;
+    return error;
+};
+
+const highlightTd= function (td) {
+    td.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+};
 
 const create_table = function (rowsNumber, columnsNumber) {
     const table_container = document.querySelector('#table_container');
-
+    
     if (table_container.firstChild) {table_container.firstChild.remove()};
 
-    console.log(table_container.firstChild);
     const new_table = table_container.appendChild(document.createElement('table'));
-    console.log(new_table);
 
     for (let i = 0; i < rowsNumber; i++)
     {
-        const main_table_rows =  new_table.insertRow ();
+        const main_table_rows =  new_table.insertRow();
 
         for (let j = 0; j < columnsNumber; j++)
         {
-            const main_table_cells = main_table_rows.insertCell ();
-            main_table_cells.appendChild(document.createElement('a'));
+            const main_table_cells = main_table_rows.insertCell();
         }
     }
-}
 
-validationForm.addEventListener('submit', function (event) {
-    event.preventDefault();
+    new_table.addEventListener('click', function(event) {
+        let target = event.target;
 
-    const errors = validationForm.querySelectorAll('.error')
+        (target.tagName != 'TD') ? 'return' : highlightTd(target);
+    });
+};
 
-    for (let i = 0; i < errors.length; i++) {
-        errors[i].remove();
-    }
-
+var checkFields = function () {
     for (let i = 0; i < fields.length; i++) {
         if (!fields[i].value) {
             const error = generateError('Cant be blank')
@@ -57,7 +53,21 @@ validationForm.addEventListener('submit', function (event) {
             fields[i].parentElement.appendChild(error);
         }
     };
+};
 
-    create_table(rowsInput.value, columnsInput.value);
-})
+var removeValidation = function () {
+    var errors = validationForm.querySelectorAll('.error');
+
+    for (var i = 0; i < errors.length; i++) {
+        errors[i].remove();
+    }
+};
+
+validationForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    removeValidation();
+    checkFields();
+    create_table(Math.round(rowsInput.value), Math.round(columnsInput.value));
+});
 
