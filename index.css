@@ -1,7 +1,7 @@
 body {
   margin:           60px;
   font-family:     'Bangers', cursive;
-  background-color: honeydew;
+  background-color: lavender;
   letter-spacing:   1.5px;
   font-size:        20px;
 }
@@ -24,7 +24,8 @@ h1 {
 }
 
 .creation_form .field_wrap label {
-  min-width: 200px;
+  min-width:   200px;
+  line-height: 26px;
 }
 
 .validate_btn
