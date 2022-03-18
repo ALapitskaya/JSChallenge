@@ -75,5 +75,9 @@ validationForm.addEventListener('submit', function (event) {
     create_table(rowsInput.value, columnsInput.value);
 });
 
+var example = document.getElementById("example"),
+    ctx     = example.getContext('2d');
+
+    ctx.strokeRect(0, 0, example.width, example.height);
 /*
 https://github.com/ALapitskaya/JSChallenge*/
