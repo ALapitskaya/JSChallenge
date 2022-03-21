@@ -41,12 +41,19 @@ body {
   background-color: #9F4FEE;
 }
 
-.creation_form .field_wrap .error {
-  color:         red;
-  border:        1px solid red;
-  margin-left:   20px;
-  padding:       2px 10px 0;
+.error {
+  display: none;
+
 }
+
+.error.visible {
+  display:      block;
+  color:        red;
+  border:       1px solid red;
+  margin-left:  20px;
+  padding:      2px 10px 0;
+}
+
 
 .main_table table {
   border-collapse: collapse;

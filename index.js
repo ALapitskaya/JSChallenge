@@ -4,15 +4,18 @@ const validationForm = document.querySelector('#form_with_validation');
 const rowsInput = validationForm.querySelector('.rows_input');
 const columnsInput = validationForm.querySelector('.columns_input');
 
-const generateError = (text) => {
-    const error = document.createElement('div')
-    error.className = 'error';
+
+const generateError = (inputWithError, text) => {
+    const error = inputWithError.parentElement.querySelector('.error');
+    error.className = 'error visible';
     error.innerHTML = text;
-    return error;
 };
 
 const highlightTd = (event) => {
     const target = event.target;
+    const cells = document.querySelectorAll('#table_container td[style]');
+    cells.forEach(cell => cell.removeAttribute('style'));
+
     if (/td/i.test(target.tagName)) {
         target.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
     }
@@ -44,27 +47,27 @@ const createTable = (rowsNumber, columnsNumber) => {
     newTable.addEventListener('click', highlightTd);
 };
 
-const checkFields = (fieldsToCheck) => {
-    let error;
-    fieldsToCheck.forEach((field) => {
-        let fieldValue = Number(field.value);
+const checkFields = () => {
+    const inputs = validationForm.querySelectorAll('.field');
 
-        if (!field.value) {
-            error = generateError('Cant be blank');
-        } else if (isNaN(fieldValue)) {
-            error = generateError('Put the number');
-        } else if (fieldValue <= 0) {
-            error = generateError('Put the positive number only');
-        }
-
-        if (error) {
-            field.parentElement.appendChild(error);
+    inputs.forEach((input) => {
+        const inputValue = input.value.replace(/^ +| +$|( ) +/g,"$1");
+        console.log(inputValue);
+        if (inputValue === '') {
+            generateError(input, 'Cant be blank');
+        } else if (isNaN(inputValue)) {
+            generateError(input, 'Put the number');
+        } else if (inputValue <= 0) {
+            generateError(input, 'Put the positive number only');
         }
     });
 };
 
 const removeValidation = (errorsToRemove) => {
-    errorsToRemove.forEach(error => {error.remove()});
+    errorsToRemove.forEach(error => {
+        error.innerHTML = '';
+        error.className = 'error';
+    });
 };
 
 validationForm.addEventListener('submit', (event) => {
@@ -73,7 +76,6 @@ validationForm.addEventListener('submit', (event) => {
     const errors = validationForm.querySelectorAll('.error');
     removeValidation(errors);
 
-    const fields = validationForm.querySelectorAll('.field');
-    checkFields(fields);
+    checkFields();
     createTable(rowsInput.value, columnsInput.value);
 });
