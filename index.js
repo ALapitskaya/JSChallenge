@@ -3,6 +3,7 @@
 const validationForm = document.querySelector('#form_with_validation');
 const rowsInput = validationForm.querySelector('.rows_input');
 const columnsInput = validationForm.querySelector('.columns_input');
+const button = validationForm.querySelector('.validate_btn');
 
 
 const generateError = (inputWithError, text) => {
@@ -22,6 +23,18 @@ const highlightTd = (event) => {
     return
 };
 
+const createRowsCells = (rowsNumber, columnsNumber, table) => {
+    for (let i = 0; i < Math.round(rowsNumber); i++)
+    {
+        const mainTableRows =  table.insertRow();
+
+        for (let j = 0; j < Math.round(columnsNumber); j++)
+        {
+            mainTableRows.insertCell();
+        }
+    }
+}
+
 const createTable = (rowsNumber, columnsNumber) => {
     const tableContainer = document.querySelector('#table_container');
 
@@ -32,15 +45,7 @@ const createTable = (rowsNumber, columnsNumber) => {
 
     const newTable = document.createElement('table');
 
-    for (let i = 0; i < Math.round(rowsNumber); i++)
-    {
-        const mainTableRows =  newTable.insertRow();
-
-        for (let j = 0; j < Math.round(columnsNumber); j++)
-        {
-            mainTableRows.insertCell();
-        }
-    }
+    createRowsCells(rowsNumber, columnsNumber, newTable);
 
     tableContainer.appendChild(newTable);
 
@@ -70,7 +75,7 @@ const removeValidation = (errorsToRemove) => {
     });
 };
 
-validationForm.addEventListener('submit', (event) => {
+button.addEventListener('click', (event) => {
     event.preventDefault();
 
     const errors = validationForm.querySelectorAll('.error');
