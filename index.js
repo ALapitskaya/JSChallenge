@@ -56,8 +56,7 @@ const checkFields = () => {
     const inputs = validationForm.querySelectorAll('.field');
 
     inputs.forEach((input) => {
-        const inputValue = input.value.replace(/^ +| +$|( ) +/g,"$1");
-        console.log(inputValue);
+        const inputValue = input.value.replaceAll(' ', '');
         if (inputValue === '') {
             generateError(input, 'Cant be blank');
         } else if (isNaN(inputValue)) {
